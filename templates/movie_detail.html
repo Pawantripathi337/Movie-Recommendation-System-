@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block title %}{{ movie.title }} - CineMatch{% endblock %}
+{% block content %}
+
+<section class="detail">
+  <div class="detail-poster">
+    <img src="{{ movie.poster_url }}" alt="Poster of {{ movie.title }}" class="poster-img">
+  </div>
+  <div class="detail-body">
+    <h1 class="detail-title">{{ movie.title }}</h1>
+    <div class="meta-row">
+      {% if movie.release_year %}<span>{{ movie.release_year }}</span>{% endif %}
+      {% if movie.vote_average %}<span class="rating-inline">Rating {{ movie.vote_average|floatformat:1 }} / 10</span>{% endif %}
+    </div>
+    <div class="genre-row">
+      {% for genre in movie.genre_list %}<span class="genre-chip">{{ genre }}</span>{% endfor %}
+    </div>
+
+    <h2 class="label">Overview</h2>
+    <p>{% if movie.overview %}{{ movie.overview }}{% else %}No overview available.{% endif %}</p>
+
+    <dl class="facts">
+      <dt>Director</dt>
+      <dd>{{ movie.director|default:"Not available" }}</dd>
+      <dt>Cast</dt>
+      <dd>{% if movie.cast_list %}{{ movie.cast_list|join:", " }}{% else %}Not available{% endif %}</dd>
+    </dl>
+  </div>
+</section>
+
+<h2 class="section-title">Because you picked "{{ movie.title }}"</h2>
+{% if recommendations %}
+  <div class="movie-grid">
+    {% for rec in recommendations %}
+      {% include "_movie_card.html" with item=rec.movie extra=rec.percent %}
+    {% endfor %}
+  </div>
+  <a class="btn btn-outline-accent mt-4" href="{% url 'recommendations' movie.movie_id %}">See full recommendation list</a>
+{% else %}
+  <div class="notice">Sorry, we could not find similar movies for this title.</div>
+{% endif %}
+
+{% endblock %}

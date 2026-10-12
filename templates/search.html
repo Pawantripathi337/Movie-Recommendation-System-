@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block title %}Search - CineMatch{% endblock %}
+{% block content %}
+
+<h1 class="page-title">{% if query %}Results for "{{ query }}"{% else %}Search{% endif %}</h1>
+
+{% if message %}
+  <div class="notice">{{ message }}</div>
+  <a class="btn btn-accent mt-3" href="{% url 'home' %}">Back to home</a>
+{% else %}
+  <p class="muted">{{ results|length }} movie{{ results|length|pluralize }} found. Click a movie to see its details and recommendations.</p>
+  <div class="movie-grid">
+    {% for item in results %}{% include "_movie_card.html" %}{% endfor %}
+  </div>
+{% endif %}
+
+{% endblock %}

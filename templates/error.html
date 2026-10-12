@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}Oops - CineMatch{% endblock %}
+{% block content %}
+<div class="error-box">
+  <h1 class="page-title">Oops!</h1>
+  <p class="lead-text">{{ message }}</p>
+  <a class="btn btn-accent" href="{% url 'home' %}">Go to home page</a>
+</div>
+{% endblock %}

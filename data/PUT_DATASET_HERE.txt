@@ -1,0 +1,4 @@
+Place these 2 files in this folder:
+  tmdb_5000_movies.csv
+  tmdb_5000_credits.csv
+Download: Kaggle -> search "TMDB 5000 Movie Dataset" -> Download (free account needed).

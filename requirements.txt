@@ -1,0 +1,6 @@
+Django>=5.2,<6.0
+pandas>=2.2
+numpy>=1.26
+scikit-learn>=1.4
+requests>=2.31
+TMDB_API_KEY=356a8db8ddd8c2ebbab87a0cfd78c326

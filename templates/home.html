@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% block title %}CineMatch - Movie Recommendation System{% endblock %}
+{% block content %}
+
+<section class="hero">
+  <h1>Find your next movie.</h1>
+  <p class="lead-text">
+    Pick any movie and we recommend similar ones. Our system reads each movie's genres, keywords,
+    story, cast and director, turns the text into numbers using <strong>TF-IDF</strong>, and compares
+    movies using <strong>Cosine Similarity</strong>.
+  </p>
+  <form class="hero-search" action="{% url 'search' %}" method="get">
+    <input class="form-control form-control-lg" type="search" name="q" placeholder="Try: Avatar, Batman, Avengers..." aria-label="Search movie">
+    <button class="btn btn-accent btn-lg" type="submit">Search</button>
+  </form>
+</section>
+
+{% if dataset_missing %}
+  <div class="notice">
+    <strong>No movies in the database yet.</strong><br>
+    Put <code>tmdb_5000_movies.csv</code> and <code>tmdb_5000_credits.csv</code> in the <code>data</code> folder, then run:
+    <pre>python manage.py preprocess_data
+python manage.py load_movies</pre>
+  </div>
+{% else %}
+  <h2 class="section-title">Popular movies</h2>
+  <div class="movie-grid movie-row">
+    {% for item in popular_movies %}{% include "_movie_card.html" %}{% endfor %}
+  </div>
+
+  {% if top_rated_movies %}
+    <h2 class="section-title">Top rated</h2>
+    <div class="movie-grid movie-row">
+      {% for item in top_rated_movies %}{% include "_movie_card.html" %}{% endfor %}
+    </div>
+  {% endif %}
+{% endif %}
+
+{% endblock %}

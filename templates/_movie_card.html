@@ -1,0 +1,10 @@
+<a class="movie-card" href="{% url 'movie_detail' item.movie_id %}">
+  <div class="poster-wrap">
+    <img src="{{ item.poster_url }}" alt="Poster of {{ item.title }}" loading="lazy" class="poster-img">
+    {% if item.vote_average %}<span class="rating-badge">{{ item.vote_average|floatformat:1 }}</span>{% endif %}
+  </div>
+  <div class="card-info">
+    <div class="card-title">{{ item.title }}</div>
+    <div class="card-sub">{% if item.release_year %}{{ item.release_year }}{% endif %}{% if extra %} &middot; {{ extra }}% match{% endif %}</div>
+  </div>
+</a>
